@@ -8,7 +8,7 @@ public class SinglyLinkedList<E> implements List<E> {
 
     private static class Node<E> {
 
-        private E element;            // reference to the element stored at this node
+        private final E element;            // reference to the element stored at this node
 
         /**
          * A reference to the subsequent node in the list
@@ -34,7 +34,7 @@ public class SinglyLinkedList<E> implements List<E> {
          * @return the element stored at the node
          */
         public E getElement() {
-            return element;
+            return null;
         }
 
         /**
@@ -61,159 +61,61 @@ public class SinglyLinkedList<E> implements List<E> {
     /**
      * The head node of the list
      */
-    private Node<E> head = null;               // head node of the list (or null if empty)
+    private final Node<E> head = null;               // head node of the list (or null if empty)
 
 
     /**
      * Number of nodes in the list
      */
-    private int size = 0;                      // number of nodes in the list
+    private final int size = 0;                      // number of nodes in the list
 
     public SinglyLinkedList() {
-
     }              // constructs an initially empty list
 
     //@Override
     public int size() {
-        return this.size;
+        // TODO
     }
 
     //@Override
     public boolean isEmpty() {
-        return size == 0;
+        // TODO
     }
 
     @Override
     public E get(int position) {
-        Node<E> cuurent = head;
-
-        int index = 0;
-        while (cuurent.next != null && index <= position){
-            cuurent = cuurent.next;
-            index++;
-        }
-        return cuurent.getElement();
+        // TODO
     }
 
     @Override
     public void add(int position, E e) {
         // TODO
-        Node<E> Newnode = new Node<E>(e,null);
-
-
-        if(head == null || position == 0){
-            Newnode.next = head;
-            head = Newnode;
-            size++;
-            return;
-        }
-
-        Node<E> curr = head;
-        int index = 0;
-
-        while (curr.next != null && index < position - 1){
-            curr = curr.next;
-            index++;
-        }
-
-        // making new node point to current next so once inserted it is pointing to the next element
-        Newnode.next = curr.next;
-        // The current.next then points to the new node and is succesfully added in between the 2 elements
-        curr.next = Newnode;
-        size++;
-
     }
 
 
     @Override
     public void addFirst(E e) {
         // TODO
-        Node<E> newNode = new Node<>(e,null);
-
-
-        if (head == null){
-            head = newNode;
-            size++;
-            return;
-        }
-        newNode.next = head;
-        head = newNode;
-        size++;
     }
 
     @Override
     public void addLast(E e) {
         // TODO
-        Node newNode = new Node<>(e, null);
-
-        Node curr = head;
-
-        if(head == null){
-            head = newNode;
-            size++;
-            return;
-        }
-
-        while(curr.next != null){
-            curr = curr.next;
-        }
-
-        curr.next = newNode;
-        size++;
     }
 
     @Override
     public E remove(int position) {
         // TODO
-        Node<E> curr = head;
-
-        if(head == null || position < 0){
-            return null;
-        }
-
-        if(position == 0){
-            curr.next = head;
-            size--;
-            return head.getElement();
-        }
-
-        int index = 0;
-
-        while (curr.next != null && index < position - 1){
-            curr = curr.next;
-            index++;
-        }
-        curr.next = curr.next.next;
-        size--;
-        return curr.getElement();
     }
 
     @Override
     public E removeFirst() {
-        if (head == null) {
-            return null;
-        }
-
-        E element = head.getElement(); // Save the element to return
-        head = head.next; // Update head to the next node
-        size--; // Decrement the size of the list
-        return element; // Return the saved element
+        // TODO
     }
 
     @Override
     public E removeLast() {
-
-        if(head == null){
-            return null;
-        }
-
-        Node<E> curr = head;
-
-        while(curr.next != null){
-            curr = curr.next;
-        }
-        size--;
-        return curr.getElement();
+        // TODO
     }
 
     //@Override
@@ -235,13 +137,6 @@ public class SinglyLinkedList<E> implements List<E> {
             curr = curr.next;
             return res;
         }
-    }
-
-    public E first(){
-        if(head == null){
-            return null;
-        }
-        return head.getElement();
     }
 
     public String toString() {

@@ -40,12 +40,8 @@ class SinglyLinkedListTest {
         ll.addLast(3);
 
         ll.add(1, 100);
-        ll.add(0, 2);
-        ll.add(2, 10);
 
-
-
-        assertEquals("[2, 1, 10, 100, 2, 3]", ll.toString(), "item not added correctly");
+        assertEquals("[1, 100, 2, 3]", ll.toString(), "item not added correctly");
     }
 
     @Test
@@ -55,7 +51,7 @@ class SinglyLinkedListTest {
         ll.addLast(2);
         ll.addLast(3);
 
-        assertEquals(1, ll.remove(0), "the removed value should be 3");
+        assertEquals(3, ll.remove(2), "the removed value should be 3");
         assertEquals(2, ll.size(), "the size should be 2");
     }
 
@@ -99,10 +95,9 @@ class SinglyLinkedListTest {
         List<Integer> ll = new SinglyLinkedList<Integer>();
         ll.addLast(-1);
         ll.addFirst(1);
-        ll.addFirst(2);
 
-        assertEquals(3, ll.size());
-        assertEquals("[2, 1, -1]", ll.toString());
+        assertEquals(2, ll.size());
+        assertEquals("[1, -1]", ll.toString());
     }
 
     @Test

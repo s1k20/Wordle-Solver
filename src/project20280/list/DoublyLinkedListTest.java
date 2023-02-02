@@ -19,11 +19,11 @@ class DoublyLinkedListTest {
     @Test
     void testIsEmpty() {
         DoublyLinkedList<Integer> ll = new DoublyLinkedList<>();
-        assertEquals(true, ll.isEmpty());
+		assertTrue(ll.isEmpty());
         ll.addFirst(0);
-        assertEquals(false, ll.isEmpty());
+		assertFalse(ll.isEmpty());
         ll.removeFirst();
-        assertEquals(true, ll.isEmpty());
+		assertTrue(ll.isEmpty());
     }
 
     @Test
@@ -33,7 +33,7 @@ class DoublyLinkedListTest {
         assertEquals(-1, ll.first());
 
         ll.removeFirst();
-        assertEquals(null, ll.first());
+		assertNull(ll.first());
 
 
     }
@@ -64,7 +64,7 @@ class DoublyLinkedListTest {
     @Test
     void testGet() {
         DoublyLinkedList<Integer> ll = new DoublyLinkedList<>();
-        for(int i = 0; i < 5; ++i) ll.addLast(i);
+        for (int i = 0; i < 5; ++i) ll.addLast(i);
 
         assertEquals(1, ll.get(1));
     }
@@ -72,7 +72,7 @@ class DoublyLinkedListTest {
     @Test
     void testRemove() {
         DoublyLinkedList<Integer> ll = new DoublyLinkedList<>();
-        for(int i = 0; i < 5; ++i) ll.addLast(i);
+        for (int i = 0; i < 5; ++i) ll.addLast(i);
 
         ll.remove(1);
         assertEquals("[0, 2, 3, 4]", ll.toString());
@@ -81,7 +81,7 @@ class DoublyLinkedListTest {
     @Test
     void testAdd() {
         DoublyLinkedList<Integer> ll = new DoublyLinkedList<>();
-        for(int i = 0; i < 5; ++i) ll.addLast(i);
+        for (int i = 0; i < 5; ++i) ll.addLast(i);
 
         ll.add(2, -1);
         assertEquals("[0, 1, -1, 2, 3, 4]", ll.toString());
@@ -90,7 +90,7 @@ class DoublyLinkedListTest {
     @Test
     void testToString() {
         DoublyLinkedList<Integer> ll = new DoublyLinkedList<>();
-        for(int i = 0; i < 5; ++i) ll.addLast(i);
+        for (int i = 0; i < 5; ++i) ll.addLast(i);
 
         assertEquals("[0, 1, 2, 3, 4]", ll.toString());
     }
@@ -98,12 +98,13 @@ class DoublyLinkedListTest {
     @Test
     void testIterator() {
         DoublyLinkedList<Integer> ll = new DoublyLinkedList<>();
-        for(int i = 0; i < 5; ++i) ll.addLast(i);
+        for (int i = 0; i < 5; ++i) ll.addLast(i);
 
         ArrayList<Integer> buf = new ArrayList<>();
-        for(Integer i : ll) {
+        for (Integer i : ll) {
             buf.add(i);
         }
         assertEquals("[0, 1, 2, 3, 4]", buf.toString());
     }
+
 }

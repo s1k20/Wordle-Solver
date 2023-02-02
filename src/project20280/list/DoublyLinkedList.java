@@ -7,12 +7,12 @@ import java.util.Iterator;
 public class DoublyLinkedList<E> implements List<E> {
 
     private static class Node<E> {
-        private E data;
+        private final E data;
         private Node<E> next;
-        private Node<E> prev;
+        private final Node<E> prev;
 
         public Node(E e, Node<E> p, Node<E> n) {
-           data = e;
+            data = e;
             prev = p;
             next = n;
         }
@@ -30,9 +30,10 @@ public class DoublyLinkedList<E> implements List<E> {
         }
 
     }
-    Node<E> head;
-    Node<E> tail;
-    int size = 0;
+
+    private final Node<E> head;
+    private final Node<E> tail;
+    private final int size = 0;
 
     public DoublyLinkedList() {
         head = new Node<E>(null, null, null);
@@ -42,81 +43,31 @@ public class DoublyLinkedList<E> implements List<E> {
 
     private void addBetween(E e, Node<E> pred, Node<E> succ) {
         // TODO
-        Node<E> newNode = new Node<E>(e, null, null);
-
-        newNode.next = succ;
-        newNode.prev = pred;
-        pred.next = newNode;
-        succ.prev = newNode;
-        size++;
-
     }
 
     @Override
     public int size() {
         // TODO
-        return size;
     }
 
     @Override
     public boolean isEmpty() {
         // TODO
-        return size == 0;
     }
 
     @Override
     public E get(int i) {
-        if (i < 0 || i >= size) {
-            throw new IndexOutOfBoundsException("Index: " + i + ", Size: " + size);
-        }
-
-        Node<E> current = head.next;
-        for (int index = 0; index < i; index++) {
-            current = current.next;
-        }
-
-        return current.data;
+        // TODO
     }
 
-        @Override
+    @Override
     public void add(int i, E e) {
-            if (i < 0 || i > size) {
-                throw new IndexOutOfBoundsException("Index: " + i + ", Size: " + size);
-            }
-
-            Node<E> newNode = new Node<>(e, null, null);
-            Node<E> current = head;
-
-            for (int index = 0; index < i; index++) {
-                current = current.next;
-            }
-
-            newNode.prev = current;
-            newNode.next = current.next;
-            current.next.prev = newNode;
-            current.next = newNode;
-
-            size++;
-        }
+        // TODO
+    }
 
     @Override
     public E remove(int i) {
         // TODO
-        if (i < 0 || i >= size) {
-            throw new IndexOutOfBoundsException("Index: " + i + ", Size: " + size);
-        }
-
-        Node<E> current = head;
-        for (int index = 0; index < i; index++) {
-            current = current.next;
-        }
-
-        Node<E> removedNode = current.next;
-        current.next = removedNode.next;
-        removedNode.next.prev = current;
-        size--;
-
-        return removedNode.data;
     }
 
     private class DoublyLinkedListIterator<E> implements Iterator<E> {
@@ -141,19 +92,7 @@ public class DoublyLinkedList<E> implements List<E> {
     }
 
     private E remove(Node<E> n) {
-        if (n == null || n == head || n == tail) {
-            // Cannot remove head, tail, or a null node
-            return null;
-
-        }
-
-        // Update the pointers of the neighboring nodes to bypass the node to be removed
-        n.prev.next = n.next;
-        n.next.prev = n.prev;
-
-        size--;
-
-        return n.data;
+        // TODO
     }
 
     public E first() {
@@ -164,84 +103,27 @@ public class DoublyLinkedList<E> implements List<E> {
     }
 
     public E last() {
-        if (isEmpty()) {
-            return null;
-        }
-        return tail.prev.getData();
+        // TODO
     }
 
     @Override
     public E removeFirst() {
         // TODO
-        if (isEmpty()) {
-            return null;
-        }
-
-        Node<E> removedNode = head.next;
-        head.next = removedNode.next;
-        removedNode.next.prev = head;
-        size--;
-
-        return removedNode.data;
     }
 
     @Override
     public E removeLast() {
         // TODO
-        if (isEmpty()) {
-            return null;
-        }
-
-        Node<E> removedNode = tail.prev;
-        tail.prev = removedNode.prev;
-        removedNode.prev.next = tail;
-        size--;
-
-        return removedNode.data;
     }
 
     @Override
     public void addLast(E e) {
-        Node<E> newNode = new Node<>(e, null, null);
-
-        if (isEmpty()) {
-            // If the list is empty, set both head and tail to the new node
-            head.next = newNode;
-            tail.prev = newNode;
-            size++;
-        } else {
-            // Connect the new node to the current tail
-            newNode.prev = tail.prev;
-            newNode.next = tail;
-            tail.prev.next = newNode;
-            tail.prev = newNode;
-            size++;
-        }
-
-
+        // TODO
     }
-
 
     @Override
     public void addFirst(E e) {
-        Node<E> newNode = new Node<>(e, null, null);
-
-        if (isEmpty()) {
-            // If the list is empty, the new node becomes both the head and tail
-            head.next = newNode;
-            tail.prev = newNode;
-            newNode.next = tail;
-            newNode.prev = head;
-        } else {
-            // If the list is not empty, update links for the new node and the current head
-            newNode.next = head.next;
-            newNode.prev = head;
-            Node<E> curr = head.next;
-            curr.prev = newNode;
-            head.next = newNode;
-        }
-
-        size++;
+        // TODO
     }
 
     public String toString() {
@@ -260,17 +142,10 @@ public class DoublyLinkedList<E> implements List<E> {
 
     public static void main(String[] args) {
         DoublyLinkedList<Integer> ll = new DoublyLinkedList<Integer>();
-        ll.addFirst(5);
-//        ll.addFirst(3);
-        ll.addLast(6);
-//        ll.addLast(6);
-//        ll.addLast(6);
-//        ll.addFirst(1);
-//        ll.addFirst(2);
-//        ll.addLast(-1);
-//        ll.add(0, -1);
-//        ll.add(1, 2);
-//        ll.add(2, 5);
+        ll.addFirst(0);
+        ll.addFirst(1);
+        ll.addFirst(2);
+        ll.addLast(-1);
         System.out.println(ll);
 
         ll.removeFirst();
