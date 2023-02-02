@@ -1,13 +1,9 @@
 package project20280.stacksqueues;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.Assert.assertArrayEquals;
-
-import java.lang.reflect.Array;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static project20280.stacksqueues.LinkedStack.Reverse;
 
 class LinkedStackTest {
 
@@ -63,15 +59,4 @@ class LinkedStackTest {
             s.push(i);
         assertEquals("[9, 8, 7, 6, 5, 4, 3, 2, 1, 0]", s.toString());
     }
-
-    @Test
-    public void testReverseIntegerArray() {
-        Integer[] originalArray = {1, 2, 3, 4, 5};
-        Integer[] expectedReversedArray = {5, 4, 3, 2, 1};
-
-        Reverse(originalArray);
-
-        assertArrayEquals(expectedReversedArray, originalArray);
-    }
-
 }
