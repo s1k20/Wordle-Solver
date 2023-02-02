@@ -28,7 +28,6 @@ public abstract class AbstractTree<E> implements Tree<E> {
     @Override
     public boolean isInternal(Position<E> p) {
         // TODO
-        return numChildren(p) > 0;
     }
 
     /**
@@ -41,7 +40,6 @@ public abstract class AbstractTree<E> implements Tree<E> {
     @Override
     public boolean isExternal(Position<E> p) {
         // TODO
-        return numChildren(p) == 0;
     }
 
     /**
@@ -53,7 +51,6 @@ public abstract class AbstractTree<E> implements Tree<E> {
     @Override
     public boolean isRoot(Position<E> p) {
         // TODO
-        return p == root();
     }
 
     /**
@@ -66,12 +63,6 @@ public abstract class AbstractTree<E> implements Tree<E> {
     @Override
     public int numChildren(Position<E> p) {
         // TODO
-        int count = 0;
-        // Iterate over all children of the position p
-        for (Position<E> c : children(p)) {
-            count++; // Increment count for each child found
-        }
-        return count; // Return the total count of children
     }
 
     /**
@@ -106,11 +97,6 @@ public abstract class AbstractTree<E> implements Tree<E> {
      */
     public int depth(Position<E> p) throws IllegalArgumentException {
         // TODO
-        if (isRoot(p)){
-            return 0;
-        }
-        else
-            return 1 + depth(parent(p));
     }
 
     /**
@@ -134,11 +120,6 @@ public abstract class AbstractTree<E> implements Tree<E> {
      */
     public int height(Position<E> p) throws IllegalArgumentException {
         // TODO
-        int h = 0;
-        for (Position<E> c : children(p)) {
-            h = Math.max(h, 1 + height(c));
-        }
-        return h;
     }
 
     //---------- support for various iterations of a tree ----------
@@ -199,7 +180,6 @@ public abstract class AbstractTree<E> implements Tree<E> {
      */
     public Iterable<Position<E>> preorder() {
         // TODO
-        return null;
     }
 
     /**
@@ -232,6 +212,5 @@ public abstract class AbstractTree<E> implements Tree<E> {
      */
     public Iterable<Position<E>> breadthfirst() {
         // TODO
-        return null;
     }
 }

@@ -32,7 +32,6 @@ public class AVLTreeMap<K, V> extends TreeMap<K, V> {
      */
     protected int height(Position<Entry<K, V>> p) {
         // TODO
-        return 0;
     }
 
     /**
@@ -47,7 +46,6 @@ public class AVLTreeMap<K, V> extends TreeMap<K, V> {
      */
     protected boolean isBalanced(Position<Entry<K, V>> p) {
         // TODO
-        return false;
     }
 
     /**
@@ -55,7 +53,6 @@ public class AVLTreeMap<K, V> extends TreeMap<K, V> {
      */
     protected Position<Entry<K, V>> tallerChild(Position<Entry<K, V>> p) {
         // TODO
-        return null;
     }
 
     /**
