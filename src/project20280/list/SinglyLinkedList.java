@@ -61,13 +61,13 @@ public class SinglyLinkedList<E> implements List<E> {
     /**
      * The head node of the list
      */
-    private final Node<E> head = null;               // head node of the list (or null if empty)
+    private Node<E> head = null;               // head node of the list (or null if empty)
 
 
     /**
      * Number of nodes in the list
      */
-    private final int size = 0;                      // number of nodes in the list
+    private int size = 0;                      // number of nodes in the list
 
     public SinglyLinkedList() {
     }              // constructs an initially empty list
