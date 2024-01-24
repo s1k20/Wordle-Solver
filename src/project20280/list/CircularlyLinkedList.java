@@ -43,6 +43,7 @@ public class CircularlyLinkedList<E> implements List<E> {
     @Override
     public E get(int i) {
         // TODO
+        return null;
     }
 
     /**
@@ -60,6 +61,7 @@ public class CircularlyLinkedList<E> implements List<E> {
     @Override
     public E remove(int i) {
         // TODO
+        return null;
     }
 
     public void rotate() {
@@ -96,11 +98,13 @@ public class CircularlyLinkedList<E> implements List<E> {
     @Override
     public E removeFirst() {
         // TODO
+        return null;
     }
 
     @Override
     public E removeLast() {
         // TODO
+        return null;
     }
 
     @Override

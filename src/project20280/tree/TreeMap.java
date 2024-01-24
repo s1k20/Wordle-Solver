@@ -111,6 +111,7 @@ public class TreeMap<K, V> extends AbstractSortedMap<K, V> {
          */
         public Position<Entry<K, V>> restructure(Position<Entry<K, V>> x) {
             // TODO
+            return null;
         }
     } // ----------- end of nested BalanceableBinaryTree class -----------
 
@@ -243,6 +244,7 @@ public class TreeMap<K, V> extends AbstractSortedMap<K, V> {
      */
     private Position<Entry<K, V>> treeSearch(Position<Entry<K, V>> p, K key) {
         // TODO
+        return null;
     }
 
     /**
@@ -253,6 +255,7 @@ public class TreeMap<K, V> extends AbstractSortedMap<K, V> {
      */
     protected Position<Entry<K, V>> treeMin(Position<Entry<K, V>> p) {
         // TODO
+        return null;
     }
 
     /**
@@ -263,6 +266,7 @@ public class TreeMap<K, V> extends AbstractSortedMap<K, V> {
      */
     protected Position<Entry<K, V>> treeMax(Position<Entry<K, V>> p) {
         // TODO
+        return null;
     }
 
     /**
@@ -275,6 +279,7 @@ public class TreeMap<K, V> extends AbstractSortedMap<K, V> {
     @Override
     public V get(K key) throws IllegalArgumentException {
         // TODO
+        return null;
     }
 
     /**
@@ -290,6 +295,7 @@ public class TreeMap<K, V> extends AbstractSortedMap<K, V> {
     @Override
     public V put(K key, V value) throws IllegalArgumentException {
         // TODO
+        return null;
     }
 
     /**
@@ -303,6 +309,7 @@ public class TreeMap<K, V> extends AbstractSortedMap<K, V> {
     @Override
     public V remove(K key) throws IllegalArgumentException {
         // TODO
+        return null;
     }
 
     // additional behaviors of the SortedMap interface

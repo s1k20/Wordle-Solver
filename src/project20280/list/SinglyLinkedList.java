@@ -75,16 +75,19 @@ public class SinglyLinkedList<E> implements List<E> {
     //@Override
     public int size() {
         // TODO
+        return 0;
     }
 
     //@Override
     public boolean isEmpty() {
         // TODO
+        return false;
     }
 
     @Override
     public E get(int position) {
         // TODO
+        return null;
     }
 
     @Override
@@ -106,16 +109,19 @@ public class SinglyLinkedList<E> implements List<E> {
     @Override
     public E remove(int position) {
         // TODO
+        return null;
     }
 
     @Override
     public E removeFirst() {
         // TODO
+        return null;
     }
 
     @Override
     public E removeLast() {
         // TODO
+        return null;
     }
 
     //@Override

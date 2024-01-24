@@ -32,11 +32,13 @@ public class LinkedQueue<E> implements Queue<E> {
     @Override
     public E first() {
         // TODO
+        return null;
     }
 
     @Override
     public E dequeue() {
         // TODO
+        return null;
     }
 
     public String toString() {

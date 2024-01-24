@@ -31,21 +31,25 @@ public class ProbeHashMap<K, V> extends AbstractHashMap<K, V> {
 
     int findSlot(int h, K k) {
         // TODO
+        return 0;
     }
 
     @Override
     protected V bucketGet(int h, K k) {
         // TODO
+        return null;
     }
 
     @Override
     protected V bucketPut(int h, K k, V v) {
         // TODO
+        return null;
     }
 
     @Override
     protected V bucketRemove(int h, K k) {
         // TODO
+        return null;
     }
 
     @Override

@@ -42,6 +42,7 @@ public class ArrayQueue<E> implements Queue<E> {
     @Override
     public E dequeue() {
         // TODO
+        return null;
     }
 
     public String toString() {

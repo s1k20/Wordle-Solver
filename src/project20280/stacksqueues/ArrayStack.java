@@ -75,6 +75,7 @@ public class ArrayStack<E> implements Stack<E> {
     @Override
     public E top() {
         // TODO
+        return null;
     }
 
     /**
@@ -85,6 +86,7 @@ public class ArrayStack<E> implements Stack<E> {
     @Override
     public E pop() {
         // TODO
+        return null;
     }
 
     /**

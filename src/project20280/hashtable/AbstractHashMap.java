@@ -99,10 +99,7 @@ public abstract class AbstractHashMap<K, V> extends AbstractMap<K, V> {
     @Override
     public V put(K key, V value) {
         // TODO
-<<<<<<< HEAD
         return null;
-=======
->>>>>>> ed3a13b (hashtables)
     }
 
     // private utilities
@@ -112,10 +109,7 @@ public abstract class AbstractHashMap<K, V> extends AbstractMap<K, V> {
      */
     private int hashValue(K key) {
         // TODO
-<<<<<<< HEAD
         return 0;
-=======
->>>>>>> ed3a13b (hashtables)
     }
 
     /**

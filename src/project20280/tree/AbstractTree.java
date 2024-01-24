@@ -28,6 +28,7 @@ public abstract class AbstractTree<E> implements Tree<E> {
     @Override
     public boolean isInternal(Position<E> p) {
         // TODO
+        return false;
     }
 
     /**
@@ -40,6 +41,7 @@ public abstract class AbstractTree<E> implements Tree<E> {
     @Override
     public boolean isExternal(Position<E> p) {
         // TODO
+        return false;
     }
 
     /**
@@ -51,6 +53,7 @@ public abstract class AbstractTree<E> implements Tree<E> {
     @Override
     public boolean isRoot(Position<E> p) {
         // TODO
+        return false;
     }
 
     /**
@@ -63,6 +66,7 @@ public abstract class AbstractTree<E> implements Tree<E> {
     @Override
     public int numChildren(Position<E> p) {
         // TODO
+        return 0;
     }
 
     /**
@@ -97,6 +101,7 @@ public abstract class AbstractTree<E> implements Tree<E> {
      */
     public int depth(Position<E> p) throws IllegalArgumentException {
         // TODO
+        return 0;
     }
 
     /**
@@ -120,6 +125,7 @@ public abstract class AbstractTree<E> implements Tree<E> {
      */
     public int height(Position<E> p) throws IllegalArgumentException {
         // TODO
+        return 0;
     }
 
     //---------- support for various iterations of a tree ----------
@@ -180,6 +186,7 @@ public abstract class AbstractTree<E> implements Tree<E> {
      */
     public Iterable<Position<E>> preorder() {
         // TODO
+        return null;
     }
 
     /**
@@ -212,5 +219,6 @@ public abstract class AbstractTree<E> implements Tree<E> {
      */
     public Iterable<Position<E>> breadthfirst() {
         // TODO
+        return null;
     }
 }

@@ -49,23 +49,27 @@ public class HeapPriorityQueue<K, V> extends AbstractPriorityQueue<K, V> {
     // protected utilities
     protected int parent(int j) {
         // TODO
+        return 0;
     }
 
     protected int left(int j) {
         // TODO
+        return 0;
     }
 
     protected int right(int j) {
         // TODO
+        return 0;
     }
 
     protected boolean hasLeft(int j) {
         // TODO
+        return false;
     }
 
     protected boolean hasRight(int j) {
         // TODO
-
+        return false;
     }
 
     /**
@@ -130,6 +134,7 @@ public class HeapPriorityQueue<K, V> extends AbstractPriorityQueue<K, V> {
     @Override
     public Entry<K, V> insert(K key, V value) throws IllegalArgumentException {
         // TODO
+        return null;
     }
 
     /**
@@ -140,6 +145,7 @@ public class HeapPriorityQueue<K, V> extends AbstractPriorityQueue<K, V> {
     @Override
     public Entry<K, V> removeMin() {
         // TODO
+        return null;
     }
 
     public String toString() {

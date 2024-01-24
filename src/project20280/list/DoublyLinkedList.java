@@ -48,16 +48,19 @@ public class DoublyLinkedList<E> implements List<E> {
     @Override
     public int size() {
         // TODO
+        return 0;
     }
 
     @Override
     public boolean isEmpty() {
         // TODO
+        return false;
     }
 
     @Override
     public E get(int i) {
         // TODO
+        return null;
     }
 
     @Override
@@ -68,6 +71,7 @@ public class DoublyLinkedList<E> implements List<E> {
     @Override
     public E remove(int i) {
         // TODO
+        return null;
     }
 
     private class DoublyLinkedListIterator<E> implements Iterator<E> {
@@ -93,6 +97,7 @@ public class DoublyLinkedList<E> implements List<E> {
 
     private E remove(Node<E> n) {
         // TODO
+        return null;
     }
 
     public E first() {
@@ -104,16 +109,19 @@ public class DoublyLinkedList<E> implements List<E> {
 
     public E last() {
         // TODO
+        return null;
     }
 
     @Override
     public E removeFirst() {
         // TODO
+        return null;
     }
 
     @Override
     public E removeLast() {
         // TODO
+        return null;
     }
 
     @Override
