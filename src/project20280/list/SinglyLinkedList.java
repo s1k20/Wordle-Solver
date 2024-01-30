@@ -8,7 +8,7 @@ public class SinglyLinkedList<E> implements List<E> {
 
     private static class Node<E> {
 
-        private final E element;            // reference to the element stored at this node
+        private E element;            // reference to the element stored at this node
 
         /**
          * A reference to the subsequent node in the list
@@ -34,7 +34,7 @@ public class SinglyLinkedList<E> implements List<E> {
          * @return the element stored at the node
          */
         public E getElement() {
-            return null;
+            return element;
         }
 
         /**
@@ -74,36 +74,92 @@ public class SinglyLinkedList<E> implements List<E> {
 
     //@Override
     public int size() {
-        // TODO
-        return 0;
+        return this.size;
     }
 
     //@Override
     public boolean isEmpty() {
-        // TODO
-        return false;
+        if(head == null) {
+            return true;
+        }
+        else return false;
     }
 
     @Override
     public E get(int position) {
-        // TODO
+        Node<E> cuurent = head;
+
+        while (cuurent.getNext() != null){
+            size++;
+            if (size == position){
+                return cuurent.getElement();
+            }
+            cuurent = cuurent.getNext();
+        }
+
         return null;
     }
 
     @Override
     public void add(int position, E e) {
         // TODO
+        Node<E> Newnode = new Node<E>(e,null);
+
+
+        if(head == null || position == 0){
+            Newnode.next = head;
+            head = Newnode;
+            return;
+        }
+
+        Node<E> curr = head;
+        int index = 0;
+
+        while (curr.next != null && index < position - 1){
+            curr = curr.next;
+            index++;
+        }
+
+        // making new node point to current next so once inserted it is pointing to the next element
+        Newnode.next = curr.next;
+        // The current.next then points to the new node and is succesfully added in between the 2 elements
+        curr.next = Newnode;
+
     }
 
 
     @Override
     public void addFirst(E e) {
         // TODO
+        Node<E> newNode = new Node<>(e,null);
+
+
+        if (head == null){
+            head = newNode;
+            return;
+        }
+        newNode.next = head;
+        head = newNode;
+
     }
 
     @Override
     public void addLast(E e) {
         // TODO
+        Node newNode = new Node<>(e, null);
+
+        Node curr = head;
+
+        if(head == null){
+            head = newNode;
+            return;
+        }
+
+        while(curr.next != null){
+            curr = curr.next;
+        }
+
+        curr.next = newNode;
     }
 
     @Override

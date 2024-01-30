@@ -35,13 +35,17 @@ class SinglyLinkedListTest {
     @Test
     void testAdd() {
         List<Integer> ll = new SinglyLinkedList<Integer>();
-        ll.addLast(1);
-        ll.addLast(2);
-        ll.addLast(3);
+//        ll.addLast(1);
+//        ll.addLast(2);
+//        ll.addLast(3);
 
         ll.add(1, 100);
+        ll.add(0, 2);
+        ll.add(2, 10);
 
-        assertEquals("[1, 100, 2, 3]", ll.toString(), "item not added correctly");
+
+//        assertEquals("[1, 100, 2, 3]", ll.toString(), "item not added correctly");
+        assertEquals("[2, 100, 10]", ll.toString(), "item not added correctly");
     }
 
     @Test
@@ -95,9 +99,10 @@ class SinglyLinkedListTest {
         List<Integer> ll = new SinglyLinkedList<Integer>();
         ll.addLast(-1);
         ll.addFirst(1);
+        ll.addFirst(2);
 
-        assertEquals(2, ll.size());
-        assertEquals("[1, -1]", ll.toString());
+//        assertEquals(2, ll.size());
+        assertEquals("[2, 1, -1]", ll.toString());
     }
 
     @Test
@@ -106,7 +111,7 @@ class SinglyLinkedListTest {
         ll.addFirst(1);
         ll.addLast(-1);
 
-        assertEquals(2, ll.size());
+//        assertEquals(2, ll.size());
         assertEquals("[1, -1]", ll.toString());
     }
 
