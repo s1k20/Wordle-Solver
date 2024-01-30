@@ -165,7 +165,28 @@ public class SinglyLinkedList<E> implements List<E> {
     @Override
     public E remove(int position) {
         // TODO
-        return null;
+        Node<E> curr = head;
+
+        if(head == null){{
+            return null;
+        }}
+        if(position == 0){
+            curr.next = head;
+            return head.getElement();
+        }
+
+        int index = 0;
+
+        while (curr.next != null && index <= position){
+            curr = curr.next;
+            index++;
+        }
+        return curr.getElement();
+
+
+
+
+
     }
 
     @Override
