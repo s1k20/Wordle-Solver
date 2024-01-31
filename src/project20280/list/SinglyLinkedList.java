@@ -70,6 +70,7 @@ public class SinglyLinkedList<E> implements List<E> {
     private int size = 0;                      // number of nodes in the list
 
     public SinglyLinkedList() {
+
     }              // constructs an initially empty list
 
     //@Override
@@ -79,25 +80,19 @@ public class SinglyLinkedList<E> implements List<E> {
 
     //@Override
     public boolean isEmpty() {
-        if(head == null) {
-            return true;
-        }
-        else return false;
+        return size == 0;
     }
 
     @Override
     public E get(int position) {
         Node<E> cuurent = head;
 
-        while (cuurent.getNext() != null){
-            size++;
-            if (size == position){
-                return cuurent.getElement();
-            }
-            cuurent = cuurent.getNext();
+        int index = 0;
+        while (cuurent.next != null && index <= position){
+            cuurent = cuurent.next;
+            index++;
         }
-
-        return null;
+        return cuurent.getElement();
     }
 
     @Override
@@ -109,6 +104,7 @@ public class SinglyLinkedList<E> implements List<E> {
         if(head == null || position == 0){
             Newnode.next = head;
             head = Newnode;
+            size++;
             return;
         }
 
@@ -124,6 +120,7 @@ public class SinglyLinkedList<E> implements List<E> {
         Newnode.next = curr.next;
         // The current.next then points to the new node and is succesfully added in between the 2 elements
         curr.next = Newnode;
+        size++;
 
     }
 
@@ -136,11 +133,12 @@ public class SinglyLinkedList<E> implements List<E> {
 
         if (head == null){
             head = newNode;
+            size++;
             return;
         }
         newNode.next = head;
         head = newNode;
-
+        size++;
     }
 
     @Override
@@ -152,6 +150,7 @@ public class SinglyLinkedList<E> implements List<E> {
 
         if(head == null){
             head = newNode;
+            size++;
             return;
         }
 
@@ -160,6 +159,7 @@ public class SinglyLinkedList<E> implements List<E> {
         }
 
         curr.next = newNode;
+        size++;
     }
 
     @Override
@@ -167,38 +167,53 @@ public class SinglyLinkedList<E> implements List<E> {
         // TODO
         Node<E> curr = head;
 
-        if(head == null){{
+        if(head == null || position < 0){
             return null;
-        }}
+        }
+
         if(position == 0){
             curr.next = head;
+            size--;
             return head.getElement();
         }
 
         int index = 0;
 
-        while (curr.next != null && index <= position){
+        while (curr.next != null && index < position - 1){
             curr = curr.next;
             index++;
         }
+        size--;
         return curr.getElement();
-
-
-
-
-
     }
 
     @Override
     public E removeFirst() {
-        // TODO
-        return null;
+
+        if(head == null){
+            return null;
+        }
+        Node<E> curr = head;
+
+        curr.next = head;
+        size--;
+        return head.getElement();
     }
 
     @Override
     public E removeLast() {
-        // TODO
-        return null;
+
+        if(head == null){
+            return null;
+        }
+
+        Node<E> curr = head;
+
+        while(curr.next != null){
+            curr = curr.next;
+        }
+        size--;
+        return curr.getElement();
     }
 
     //@Override

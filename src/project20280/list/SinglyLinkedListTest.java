@@ -55,7 +55,7 @@ class SinglyLinkedListTest {
         ll.addLast(2);
         ll.addLast(3);
 
-        assertEquals(3, ll.remove(2), "the removed value should be 3");
+        assertEquals(1, ll.remove(0), "the removed value should be 3");
         assertEquals(2, ll.size(), "the size should be 2");
     }
 
@@ -101,7 +101,7 @@ class SinglyLinkedListTest {
         ll.addFirst(1);
         ll.addFirst(2);
 
-//        assertEquals(2, ll.size());
+        assertEquals(3, ll.size());
         assertEquals("[2, 1, -1]", ll.toString());
     }
 
@@ -111,7 +111,7 @@ class SinglyLinkedListTest {
         ll.addFirst(1);
         ll.addLast(-1);
 
-//        assertEquals(2, ll.size());
+        assertEquals(2, ll.size());
         assertEquals("[1, -1]", ll.toString());
     }
 
