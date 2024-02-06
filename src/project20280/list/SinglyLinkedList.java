@@ -183,6 +183,7 @@ public class SinglyLinkedList<E> implements List<E> {
             curr = curr.next;
             index++;
         }
+        curr.next = curr.next.next;
         size--;
         return curr.getElement();
     }

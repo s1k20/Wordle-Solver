@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
+
 public class Wk1 {
 
     public static void q1() {
@@ -12,7 +13,6 @@ public class Wk1 {
         double Ans = 0;
         for(int num : my_array){
             Ans += num;
-
         }
 
         Ans /= 10;
@@ -34,7 +34,7 @@ public class Wk1 {
         }
         return -1;
     }
-
+    
     public static void q3(){
         String[] array1 = {"nail", "cure", "vagabond", "riddle", "act", "songs", "zipper", "excite", "magical", "eager", "blood", "coast", "guess", "selfish", "milky", "ticket", "authority"};
         String[] array2 = {"cure", "wicked", "guess", "vagabond", "riddle", "act", "excite", "songs", "troubled", "eager", "blood", "coast", "waiting", "selfish", "milky", "ticket", "authority", "nail"};
@@ -107,12 +107,44 @@ public class Wk1 {
 
         // Initialize the matrices randomly
         Random rnd = new Random();
+
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
                 mat1[i][j] = rnd.nextInt(100);
                 mat2[i][j] = rnd.nextInt(100);
             }
         }
+
+
+        double product[][] = MultiplyMatrices(mat1, mat2);
+
+        // Print the sum matrix
+        System.out.println("Product Matrix:");
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                System.out.print(product[i][j] + " ");
+            }
+            System.out.println();
+        }
+
+    }
+
+    public static double[][] MultiplyMatrices(double[][] mat1, double[][] mat2){
+        int m = mat1.length;
+        int n = mat2[0].length;
+        int p = mat2.length;
+
+        double[][] result = new double[m][n];
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                for (int k = 0; k < p; k++) {
+                    result[i][j] += mat1[i][k] * mat2[k][j];
+                }
+            }
+        }
+
+        return result;
 
     }
 
@@ -125,6 +157,7 @@ public class Wk1 {
         q2();
         q3();
         q4();
+        q5();
     }
 
 }
