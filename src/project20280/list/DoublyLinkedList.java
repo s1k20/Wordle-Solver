@@ -12,7 +12,7 @@ public class DoublyLinkedList<E> implements List<E> {
         private Node<E> prev;
 
         public Node(E e, Node<E> p, Node<E> n) {
-            data = e;
+           data = e;
             prev = p;
             next = n;
         }
@@ -30,10 +30,9 @@ public class DoublyLinkedList<E> implements List<E> {
         }
 
     }
-
-    private Node<E> head;
-    private Node<E> tail;
-    private int size = 0;
+    Node<E> head;
+    Node<E> tail;
+    int size = 0;
 
     public DoublyLinkedList() {
         head = new Node<E>(null, null, null);
@@ -67,42 +66,57 @@ public class DoublyLinkedList<E> implements List<E> {
 
     @Override
     public E get(int i) {
-        // TODO
-        return null;
+        if (i < 0 || i >= size) {
+            throw new IndexOutOfBoundsException("Index: " + i + ", Size: " + size);
+        }
+
+        Node<E> current = head.next;
+        for (int index = 0; index < i; index++) {
+            current = current.next;
+        }
+
+        return current.data;
     }
 
-    @Override
+        @Override
     public void add(int i, E e) {
-        // TODO
+            if (i < 0 || i > size) {
+                throw new IndexOutOfBoundsException("Index: " + i + ", Size: " + size);
+            }
 
-        Node<E> newNode = new Node<>(e, null, null);
+            Node<E> newNode = new Node<>(e, null, null);
+            Node<E> current = head;
 
-        Node<E> curr = head;
-        int index = 0;
+            for (int index = 0; index < i; index++) {
+                current = current.next;
+            }
 
-        if (i == 0 || head == null) {
-            addFirst(e);
+            newNode.prev = current;
+            newNode.next = current.next;
+            current.next.prev = newNode;
+            current.next = newNode;
+
+            size++;
         }
-
-        while (index < i - 1){
-            curr = curr.next;
-            index++;
-        }
-
-        // Update links in the new node
-        newNode.prev = curr;
-        newNode.next = curr.next;
-
-        // Update links in the previous and next nodes
-        curr.next.prev = newNode;
-        curr.next = newNode;
-
-    }
 
     @Override
     public E remove(int i) {
         // TODO
-        return null;
+        if (i < 0 || i >= size) {
+            throw new IndexOutOfBoundsException("Index: " + i + ", Size: " + size);
+        }
+
+        Node<E> current = head;
+        for (int index = 0; index < i; index++) {
+            current = current.next;
+        }
+
+        Node<E> removedNode = current.next;
+        current.next = removedNode.next;
+        removedNode.next.prev = current;
+        size--;
+
+        return removedNode.data;
     }
 
     private class DoublyLinkedListIterator<E> implements Iterator<E> {
@@ -127,8 +141,18 @@ public class DoublyLinkedList<E> implements List<E> {
     }
 
     private E remove(Node<E> n) {
-        // TODO
-        return null;
+        if (n == null || n == head || n == tail) {
+            // Cannot remove head, tail, or a null node
+            return null;
+        }
+
+        // Update the pointers of the neighboring nodes to bypass the node to be removed
+        n.prev.next = n.next;
+        n.next.prev = n.prev;
+
+        size--;
+
+        return n.data;
     }
 
     public E first() {
@@ -139,41 +163,80 @@ public class DoublyLinkedList<E> implements List<E> {
     }
 
     public E last() {
-        // TODO
-        return null;
+        if (isEmpty()) {
+            return null;
+        }
+        return tail.prev.getData();
     }
 
     @Override
     public E removeFirst() {
         // TODO
-        return null;
+        if (isEmpty()) {
+            return null;
+        }
+
+        Node<E> removedNode = head.next;
+        head.next = removedNode.next;
+        removedNode.next.prev = head;
+        size--;
+
+        return removedNode.data;
     }
 
     @Override
     public E removeLast() {
         // TODO
-        return null;
+        if (isEmpty()) {
+            return null;
+        }
+
+        Node<E> removedNode = tail.prev;
+        tail.prev = removedNode.prev;
+        removedNode.prev.next = tail;
+        size--;
+
+        return removedNode.data;
     }
 
     @Override
     public void addLast(E e) {
-        // TODO
+        Node<E> newNode = new Node<>(e, null, null);
+
+        if (isEmpty()) {
+            // If the list is empty, set both head and tail to the new node
+            head.next = newNode;
+            tail.prev = newNode;
+            size++;
+        } else {
+            // Connect the new node to the current tail
+            newNode.prev = tail.prev;
+            newNode.next = tail;
+            tail.prev.next = newNode;
+            tail.prev = newNode;
+            size++;
+        }
+
 
     }
+
 
     @Override
     public void addFirst(E e) {
         Node<E> newNode = new Node<>(e, null, null);
 
-        if (head == null) {
+        if (isEmpty()) {
             // If the list is empty, the new node becomes both the head and tail
             head.next = newNode;
             tail.prev = newNode;
+            newNode.next = tail;
+            newNode.prev = head;
         } else {
             // If the list is not empty, update links for the new node and the current head
             newNode.next = head.next;
             newNode.prev = head;
-            head.next.prev = newNode;
+            Node<E> curr = head.next;
+            curr.prev = newNode;
             head.next = newNode;
         }
 
@@ -197,6 +260,10 @@ public class DoublyLinkedList<E> implements List<E> {
     public static void main(String[] args) {
         DoublyLinkedList<Integer> ll = new DoublyLinkedList<Integer>();
         ll.addFirst(5);
+//        ll.addFirst(3);
+        ll.addLast(6);
+//        ll.addLast(6);
+//        ll.addLast(6);
 //        ll.addFirst(1);
 //        ll.addFirst(2);
 //        ll.addLast(-1);
