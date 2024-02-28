@@ -6,18 +6,17 @@ public class ArrayQueue<E> implements Queue<E> {
 
     private static final int CAPACITY = 1000;
     private E[] data;
-    private final int front = 0;
-    private final int size = 0;
-
-    public ArrayQueue(int capacity) {
-        // TODO
-
-    }
+    private int front = 0;
+    private int size = 0;
 
     public ArrayQueue() {
         this(CAPACITY);
     }
 
+    public ArrayQueue(int capacity) {
+        // TODO
+        data = (E[]) new Object[capacity]; // Object Array created first as generic array creation directly is not allowed in java
+    }
 
     @Override
     public int size() {
@@ -30,19 +29,36 @@ public class ArrayQueue<E> implements Queue<E> {
     }
 
     @Override
-    public void enqueue(E e) {
+    public void enqueue(E e) throws IllegalStateException {
         // TODO
-    }
+        if(size == data.length) {
+            throw new IllegalStateException("Queue is full");
+        }
+        // Front + size calculates the index of where the new element should go and
+        // % operator ensures it is within the bounds of the array if not it will loop back around
+        // to the start of the array
+            int avail = (front + size) % data.length;
+            data[avail] = e;
+            size++;
+
+        }
+
 
     @Override
     public E first() {
-        return isEmpty() ? null : data[front];
+        if (isEmpty()) return null;
+        return data[front];
     }
 
     @Override
     public E dequeue() {
         // TODO
-        return null;
+        if(isEmpty()) return null;
+        E ans = data[front];
+        data[front] = null;
+        front = (front + 1) % data.length;
+        size--;
+        return ans;
     }
 
     public String toString() {

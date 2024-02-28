@@ -144,6 +144,7 @@ public class DoublyLinkedList<E> implements List<E> {
         if (n == null || n == head || n == tail) {
             // Cannot remove head, tail, or a null node
             return null;
+
         }
 
         // Update the pointers of the neighboring nodes to bypass the node to be removed

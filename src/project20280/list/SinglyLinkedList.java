@@ -190,15 +190,14 @@ public class SinglyLinkedList<E> implements List<E> {
 
     @Override
     public E removeFirst() {
-
-        if(head == null){
+        if (head == null) {
             return null;
         }
-        Node<E> curr = head;
 
-        curr.next = head;
-        size--;
-        return head.getElement();
+        E element = head.getElement(); // Save the element to return
+        head = head.next; // Update head to the next node
+        size--; // Decrement the size of the list
+        return element; // Return the saved element
     }
 
     @Override
@@ -236,6 +235,13 @@ public class SinglyLinkedList<E> implements List<E> {
             curr = curr.next;
             return res;
         }
+    }
+
+    public E first(){
+        if(head == null){
+            return null;
+        }
+        return head.getElement();
     }
 
     public String toString() {

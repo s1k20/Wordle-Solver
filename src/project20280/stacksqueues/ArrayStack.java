@@ -12,7 +12,7 @@ public class ArrayStack<E> implements Stack<E> {
     /**
      * Generic array used for storage of stack elements.
      */
-    E[] data;                        // generic array used for storage
+    private E[] data;                        // generic array used for storage
 
     /**
      * Index of the top element of the stack in the array.
@@ -64,9 +64,12 @@ public class ArrayStack<E> implements Stack<E> {
      * @throws IllegalStateException if the array storing the elements is full
      */
     @Override
-    public void push(E e) {
+    public void push(E e) throws IllegalStateException {
         // TODO
-
+        if (size() == data.length){
+            throw new IllegalStateException("Stack is Full");
+        }
+        data[++t] = e;
     }
 
     /**
@@ -77,7 +80,8 @@ public class ArrayStack<E> implements Stack<E> {
     @Override
     public E top() {
         // TODO
-        return null;
+        if (isEmpty()) return null;
+        return data[t];
     }
 
     /**
@@ -88,7 +92,11 @@ public class ArrayStack<E> implements Stack<E> {
     @Override
     public E pop() {
         // TODO
-        return null;
+        if(isEmpty()) return null;
+        E answer = data[t];
+        data[t] = null;
+        t--;
+        return answer;
     }
 
     /**
