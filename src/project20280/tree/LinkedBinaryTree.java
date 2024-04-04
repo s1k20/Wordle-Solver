@@ -20,7 +20,7 @@ public class LinkedBinaryTree<E> extends AbstractBinaryTree<E> {
     /**
      * The number of nodes in the binary tree
      */
-    private final int size = 0; // number of nodes in the tree
+    private int size = 0; // number of nodes in the tree
 
     /**
      * Constructs an empty binary tree.
@@ -29,7 +29,6 @@ public class LinkedBinaryTree<E> extends AbstractBinaryTree<E> {
     } // constructs an empty binary tree
 
     // constructor
-
     public static LinkedBinaryTree<Integer> makeRandom(int n) {
         LinkedBinaryTree<Integer> bt = new LinkedBinaryTree<>();
         bt.root = randomTree(null, 1, n);
@@ -133,7 +132,8 @@ public class LinkedBinaryTree<E> extends AbstractBinaryTree<E> {
      */
     @Override
     public Position<E> parent(Position<E> p) throws IllegalArgumentException {
-        return ((Node<E>) p).getParent();
+        Node<E> node = validate(p);
+        return node.getParent();
     }
 
     /**
@@ -145,7 +145,8 @@ public class LinkedBinaryTree<E> extends AbstractBinaryTree<E> {
      */
     @Override
     public Position<E> left(Position<E> p) throws IllegalArgumentException {
-        return ((Node<E>) p).getLeft();
+        Node<E> node = validate(p);
+        return node.getLeft();
     }
 
     /**
@@ -157,7 +158,8 @@ public class LinkedBinaryTree<E> extends AbstractBinaryTree<E> {
      */
     @Override
     public Position<E> right(Position<E> p) throws IllegalArgumentException {
-        return ((Node<E>) p).getRight();
+        Node<E> node = validate(p);
+        return node.getRight();
     }
 
     /**
@@ -169,7 +171,12 @@ public class LinkedBinaryTree<E> extends AbstractBinaryTree<E> {
      */
     public Position<E> addRoot(E e) throws IllegalStateException {
         // TODO
-        return null;
+        if(!isEmpty()){
+            throw new IllegalStateException("Tree is not Empty");
+        }
+        root = createNode(e, null,null,null);
+        size = 1;
+        return root;
     }
 
     public void insert(E e) {
@@ -195,6 +202,8 @@ public class LinkedBinaryTree<E> extends AbstractBinaryTree<E> {
      */
     public Position<E> addLeft(Position<E> p, E e) throws IllegalArgumentException {
         // TODO
+        createNode(e, null,null,null);
+
         return null;
     }
 
