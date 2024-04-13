@@ -3,6 +3,7 @@ package project20280.tree;
 import org.junit.jupiter.api.Test;
 import project20280.interfaces.Position;
 
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class LinkedBinaryTreeTest {
@@ -66,7 +67,7 @@ class LinkedBinaryTreeTest {
 
         Integer[] arr = new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
         bt.createLevelOrder(arr);
-        //System.out.println(bt.toString());
+        System.out.println(bt.toString());
         assertEquals("[8, 4, 9, 2, 10, 5, 11, 1, 12, 6, 3, 7]", bt.toString());
     }
 
@@ -76,7 +77,7 @@ class LinkedBinaryTreeTest {
 
         Integer[] arr = new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
         bt.createLevelOrder(arr);
-        //System.out.println(bt.toString());
+        System.out.println(bt.toString());
         assertEquals("[8, 4, 9, 2, 10, 5, 11, 1, 12, 6, 3, 7]", bt.toString());
     }
 
@@ -86,7 +87,7 @@ class LinkedBinaryTreeTest {
 
         Integer[] arr = new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
         bt.createLevelOrder(arr);
-        //System.out.println(bt.toString());
+        System.out.println(bt.toString());
         assertEquals("[8, 4, 9, 2, 10, 5, 11, 1, 12, 6, 3, 7]", bt.inorder().toString());
     }
 
@@ -108,6 +109,24 @@ class LinkedBinaryTreeTest {
         bt.createLevelOrder(arr);
 
         assertEquals(3, bt.height(bt.root()));
+    }
+
+    @Test
+    void testStructure() {
+        LinkedBinaryTree<Integer> bt = new LinkedBinaryTree<Integer>();
+
+        Integer [] arr = new Integer[] {1,2,3,4,5,6,7,8,9,10,11,12};
+        bt.createLevelOrder(arr);
+        System.out.println(bt.toBinaryTreeString());
+        for(Position<Integer> p : bt.positions()) {
+            LinkedBinaryTree.Node<Integer> p_node = bt.validate(p);
+            // check the child/parent pointer is correct in both directions
+            if(p_node.getLeft() != null )
+                assertTrue(p_node.getLeft().getParent() == p_node);
+
+            if(p_node.getRight() != null)
+                assertTrue(p_node.getRight().getParent() == p_node);
+        }
     }
 
 }

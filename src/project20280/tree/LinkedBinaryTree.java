@@ -293,7 +293,31 @@ public class LinkedBinaryTree<E> extends AbstractBinaryTree<E> {
     public E remove(Position<E> p) throws IllegalArgumentException {
         // TODO
         Node<E> node = validate(p);
-        return null;
+        if(numChildren(p) == 2){
+            throw new IllegalArgumentException("p has two children");
+        }
+        Node<E> child = (node.getLeft( ) != null ? node.getLeft( ) : node.getRight( ) );
+        if (child != null){
+            child.setParent(node.getParent( ));
+        }
+        if (node == root){
+            root = child;
+        }
+        else {
+            Node<E> parent = node.getParent();
+            if (node == parent.getLeft()) {
+                parent.setLeft(child);
+            } else {
+                parent.setRight(child);
+            }
+        }
+        size--;
+        E temp = node.getElement();
+        node.setElement(null);
+        node.setLeft(null);
+        node.setRight(null);
+        node.setParent(node);
+        return temp;
     }
 
     public String toString() {
@@ -302,11 +326,24 @@ public class LinkedBinaryTree<E> extends AbstractBinaryTree<E> {
 
     public void createLevelOrder(ArrayList<E> l) {
         // TODO
+        root = createLevelOrderHelper(l, null, 0);
     }
 
     private Node<E> createLevelOrderHelper(java.util.ArrayList<E> l, Node<E> p, int i) {
         // TODO
-        return null;
+        // Check if the current index is within the bounds of the list
+        if (i < l.size()) {
+            Node<E> temp = new Node<>(l.get(i), null, null, null); // Create a new node with the current element
+
+            // Recursively create the left child of the current node
+            temp.setLeft(createLevelOrderHelper(l, temp.getLeft(), 2 * i + 1));
+
+            // Recursively create the right child of the current node
+            temp.setRight(createLevelOrderHelper(l, temp.getRight(), 2 * i + 2));
+
+            return temp; // Return the current node
+        }
+        return null; // If index is out of bounds, return null
     }
 
     public void createLevelOrder(E[] arr) {
@@ -315,7 +352,21 @@ public class LinkedBinaryTree<E> extends AbstractBinaryTree<E> {
 
     private Node<E> createLevelOrderHelper(E[] arr, Node<E> p, int i) {
         // TODO
-        return null;
+        // Base case: If the current index is out of array bounds, return null.
+        if (i >= arr.length) {
+            return null;
+        }
+
+        // Create a new node with the current element.
+        Node<E> temp = new Node<>(arr[i], null, null, null);
+
+        // Recursively build the left subtree and link it to the current node.
+        temp.setLeft(createLevelOrderHelper(arr, temp.getLeft(), 2 * i + 1));
+
+        // Recursively build the right subtree and link it to the current node.
+        temp.setRight(createLevelOrderHelper(arr, temp.getRight(), 2 * i + 2));
+
+        return temp; // Return the current node.
     }
 
     public String toBinaryTreeString() {
