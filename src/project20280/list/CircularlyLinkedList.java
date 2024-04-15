@@ -195,6 +195,14 @@ public class CircularlyLinkedList<E> implements List<E> {
     }
 
 
+    public E first(){
+        if(isEmpty()){
+            return null;
+        }
+        return tail.next.getData();
+    }
+
+
     public static void main(String[] args) {
         CircularlyLinkedList<Integer> ll = new CircularlyLinkedList<Integer>();
         for (int i = 10; i < 20; ++i) {
