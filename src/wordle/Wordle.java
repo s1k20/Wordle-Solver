@@ -7,13 +7,10 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class Wordle {
-
-    String fileName = "wordle/resources/dictionary.txt";
-    //String fileName = "wordle/resources/extended-dictionary.txt";
+    String fileName = "wordle/resources/extended-dictionary.txt";
     List<String> dictionary = null;
     final int num_guesses = 5;
-    final long seed = 42;
-    //Random rand = new Random(seed);
+    final long seed = 50;
     Random rand = new Random();
 
     static final String winMessage = "CONGRATULATIONS! YOU WON! :)";
@@ -23,72 +20,135 @@ public class Wordle {
     public static final String ANSI_YELLOW_BACKGROUND = "\u001B[43m";
     public static final String ANSI_GREY_BACKGROUND = "\u001B[100m";
 
+    Map<Character, Integer> letterFrequency = new HashMap<>();
+    Map<String, Integer> wordScores = new HashMap<>();
+
     Wordle() {
-
         this.dictionary = readDictionary(fileName);
-
-        System.out.println("dict length: " + this.dictionary.size());
-        System.out.println("dict: " + dictionary);
-
+        calculateLetterFrequency();
+        calculateWordScores();
     }
 
     public static void main(String[] args) {
         Wordle game = new Wordle();
-
         String target = game.getRandomTargetWord();
-
-        //System.out.println("target: " + target);
-
         game.play(target);
-
     }
 
-    public void play(String target) {
-        // TODO
-        // TODO: You have to fill in the code
-        for(int i = 0; i < num_guesses; ++i) {
-            String guess = getGuess();
+    void calculateLetterFrequency() {
+        for (String word : dictionary) {
+            for (char c : word.toCharArray()) {
+                letterFrequency.put(c, letterFrequency.getOrDefault(c, 0) + 1);
+            }
+        }
+    }
 
-            if(guess == target) { // you won!
+    void calculateWordScores() {
+        for (String word : dictionary) {
+            int score = 0;
+            for (char c : word.toCharArray()) {
+                score += letterFrequency.get(c);
+            }
+            wordScores.put(word, score);
+        }
+    }
+
+//    public void play(String target) {
+//        String guess = "abbey"; // Starting with the first guess
+//        List<String> possibleWords = new ArrayList<>(dictionary); // Clone the original dictionary to filter
+//
+//        for (int i = 0; i < num_guesses; ++i) {
+//            if (guess.equals(target)) {
+//                win(target);
+//                return;
+//            }
+//
+//            String[] hint = generateHint(guess, target);
+//            System.out.println("Guess: " + guess + ", Hint: " + Arrays.toString(hint));
+//
+//            filterDictionaryBasedOnHint(guess, hint, possibleWords);
+//            if (possibleWords.size() == 1) {
+//                win(possibleWords.get(0));
+//                return;
+//            }
+//            guess = getNextBestGuess(possibleWords);
+//        }
+//        lost(target);
+//    }
+
+    public int play(String target) {
+        String guess = "stake"; // Starting with the first guess
+        List<String> possibleWords = new ArrayList<>(dictionary); // Clone the original dictionary to filter
+        int guessCount = 0;
+
+        while (true) {
+            guessCount++;
+            if (guess.equals(target)) {
                 win(target);
-                return;
+                return guessCount;
             }
 
-            // the hint is a string where green="+", yellow="o", grey="_"
-            // didn't win ;(
-            String [] hint = {"_", "_", "_", "_", "_"};
+            String[] hint = generateHint(guess, target);
+            System.out.println("Guess:\n "  + guess + ",\n Hint: " + Arrays.toString(hint) + "\n");
 
-            for (int k = 0; k < 5; k++) {
-                // TODO:
+            filterDictionaryBasedOnHint(guess, hint, possibleWords);
+            if (possibleWords.isEmpty()) {
+                lost(target);
+                return guessCount; // Return guess count when no words left (fail-safe)
             }
-
-            // set the arrays for yellow (present but not in right place), grey (not present)
-            // loop over each entry:
-            //  if hint == "+" (green) skip it
-            //  else check if the letter is present in the target word. If yes, set to "o" (yellow)
-            for (int k = 0; k < 5; k++) {
-                // TODO:
-
+            if (possibleWords.size() == 1) {
+                win(possibleWords.get(0));
+                return guessCount;
             }
+            guess = getNextBestGuess(possibleWords);
+        }
+    }
 
-            // after setting the yellow and green positions, the remaining hint positions must be "not present" or "_"
-            System.out.println("hint: " + Arrays.toString(hint));
+    String[] generateHint(String guess, String target) {
+        String[] hint = new String[5];
+        Arrays.fill(hint, "_");
+        boolean[] matched = new boolean[target.length()];
 
-
-            // check for a win
-            int num_green = 0;
-            for(int k = 0; k < 5; ++k) {
-                if(hint[k] == "+") num_green += 1;
-            }
-            if(num_green == 5) {
-                 win(target);
-                 return;
+        for (int k = 0; k < 5; k++) {
+            if (guess.charAt(k) == target.charAt(k)) {
+                hint[k] = "+";
+                matched[k] = true;
             }
         }
 
-        lost(target);
+        for (int k = 0; k < 5; k++) {
+            if (hint[k].equals("_")) {
+                for (int j = 0; j < target.length(); j++) {
+                    if (guess.charAt(k) == target.charAt(j) && !matched[j]) {
+                        hint[k] = "o";
+                        matched[j] = true;
+                        break;
+                    }
+                }
+            }
+        }
+        return hint;
+    }
+    void filterDictionaryBasedOnHint(String guess, String[] hint, List<String> possibleWords) {
+        Iterator<String> it = possibleWords.iterator();
+        while (it.hasNext()) {
+            String word = it.next();
+            String[] wordHint = generateHint(guess, word);
+            if (!Arrays.equals(wordHint, hint)) {
+                it.remove();
+            }
+        }
     }
 
+    String getNextBestGuess(List<String> possibleWords) {
+        return possibleWords.stream()
+                .max(Comparator.comparingInt(wordScores::get))
+                .orElse("error");
+    }
+
+    public String getRandomTargetWord() {
+        return dictionary.get(rand.nextInt(dictionary.size()));
+    }
     public void lost(String target) {
         System.out.println();
         System.out.println(lostMessage + target.toUpperCase() + ".");
@@ -123,10 +183,6 @@ public class Wordle {
         return userWord;
     }
 
-    public String getRandomTargetWord() {
-        // generate random values from 0 to dictionary size
-        return dictionary.get(rand.nextInt(dictionary.size()));
-    }
     public List<String> readDictionary(String fileName) {
         List<String> wordList = new ArrayList<>();
 
