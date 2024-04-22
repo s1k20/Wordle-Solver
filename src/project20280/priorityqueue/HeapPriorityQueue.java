@@ -44,6 +44,17 @@ public class HeapPriorityQueue<K, V> extends AbstractPriorityQueue<K, V> {
      */
     public HeapPriorityQueue(K[] keys, V[] values) {
         // TODO
+        super();
+
+        if(keys.length != values.length){
+            throw new IllegalStateException("keys and values array must be same length");
+        }else{
+            for(int i = 0;i<keys.length;i++){
+                Entry<K,V> entry = new PQEntry<>(keys[i],values[i]);
+                heap.add(i,entry);
+            }
+        }
+        this.heapify();
     }
 
     // protected utilities

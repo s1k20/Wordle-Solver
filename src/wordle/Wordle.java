@@ -7,7 +7,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class Wordle {
-    String fileName = "wordle/resources/extended-dictionary.txt";
+//    String fileName = "wordle/resources/extended-dictionary.txt";
+    String fileName = "wordle/resources/dictionary.txt";
     List<String> dictionary = null;
     final int num_guesses = 5;
     final long seed = 50;
@@ -77,7 +78,7 @@ public class Wordle {
 //    }
 
     public int play(String target) {
-        String guess = "stake"; // Starting with the first guess
+        String guess = "slate"; // Starting with the first guess
         List<String> possibleWords = new ArrayList<>(dictionary); // Clone the original dictionary to filter
         int guessCount = 0;
 

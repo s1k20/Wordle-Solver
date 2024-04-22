@@ -1,10 +1,14 @@
 package project20280.tree;
 
 import project20280.interfaces.Position;
+import project20280.interfaces.Queue;
 import project20280.interfaces.Tree;
+import project20280.list.SinglyLinkedList;
+import project20280.stacksqueues.LinkedQueue;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -27,8 +31,7 @@ public abstract class AbstractTree<E> implements Tree<E> {
      */
     @Override
     public boolean isInternal(Position<E> p) {
-        // TODO
-        return false;
+        return numChildren(p) > 0;
     }
 
     /**
@@ -40,8 +43,7 @@ public abstract class AbstractTree<E> implements Tree<E> {
      */
     @Override
     public boolean isExternal(Position<E> p) {
-        // TODO
-        return false;
+        return numChildren(p) == 0;
     }
 
     /**
@@ -52,8 +54,7 @@ public abstract class AbstractTree<E> implements Tree<E> {
      */
     @Override
     public boolean isRoot(Position<E> p) {
-        // TODO
-        return false;
+        return p.equals(root());
     }
 
     /**
@@ -66,7 +67,17 @@ public abstract class AbstractTree<E> implements Tree<E> {
     @Override
     public int numChildren(Position<E> p) {
         // TODO
-        return 0;
+        if (p == null) {
+            throw new IllegalArgumentException("Position cannot be null");
+        }
+
+        // Call the abstract method children(p) which must be implemented in a concrete subclass.
+        // This method should return an iterable of all children for the position p.
+        int count = 0;
+        for (Position<E> child: children(p)) {
+            count++;
+        }
+        return count;
     }
 
     /**
@@ -101,7 +112,8 @@ public abstract class AbstractTree<E> implements Tree<E> {
      */
     public int depth(Position<E> p) throws IllegalArgumentException {
         // TODO
-        return 0;
+        if (isRoot(p)) return 0;
+        else return 1 + depth(parent(p));
     }
 
     /**
@@ -125,7 +137,11 @@ public abstract class AbstractTree<E> implements Tree<E> {
      */
     public int height(Position<E> p) throws IllegalArgumentException {
         // TODO
-        return 0;
+        int h = 0;
+        for (Position<E> c : children(p)) {
+            h = Math.max(h, 1 + height(c));
+        }
+        return h;
     }
 
     //---------- support for various iterations of a tree ----------
@@ -177,6 +193,10 @@ public abstract class AbstractTree<E> implements Tree<E> {
      */
     private void preorderSubtree(Position<E> p, List<Position<E>> snapshot) {
         // TODO
+        snapshot.add(p);  // Visit the root first
+        for (Position<E> c : children(p)) {
+            preorderSubtree(c, snapshot);  // Recursively traverse each child
+        }
     }
 
     /**
@@ -186,7 +206,9 @@ public abstract class AbstractTree<E> implements Tree<E> {
      */
     public Iterable<Position<E>> preorder() {
         // TODO
-        return null;
+        List<Position<E>> snapshot = new ArrayList<>();
+        if (!isEmpty()) preorderSubtree(root(), snapshot);
+        return snapshot;
     }
 
     /**
@@ -198,6 +220,10 @@ public abstract class AbstractTree<E> implements Tree<E> {
      */
     private void postorderSubtree(Position<E> p, List<Position<E>> snapshot) {
         // TODO
+        for (Position<E> c : children(p)) {
+            postorderSubtree(c, snapshot);  // Recursively traverse each child
+        }
+        snapshot.add(p);  // Visit the root last
     }
 
     /**
@@ -219,6 +245,18 @@ public abstract class AbstractTree<E> implements Tree<E> {
      */
     public Iterable<Position<E>> breadthfirst() {
         // TODO
-        return null;
+        List<Position<E>> snapshot = new ArrayList<>();
+        if (!isEmpty()) {
+            Queue<Position<E>> queue = new LinkedQueue<>();
+            queue.enqueue(root());
+            while (!queue.isEmpty()) {
+                Position<E> p = queue.dequeue();
+                snapshot.add(p);
+                for (Position<E> c : children(p)) {
+                    queue.enqueue(c);
+                }
+            }
+        }
+        return snapshot;
     }
 }

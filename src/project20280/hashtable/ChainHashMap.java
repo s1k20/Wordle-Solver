@@ -123,6 +123,28 @@ public class ChainHashMap<K, V> extends AbstractHashMap<K, V> {
         return entries;
     }
 
+    // Implement the getOrDefault method
+    public V getOrDefault(K key, V defaultValue) {
+        int h = hashValue(key); //compute the hash value for the key to find the correct bucket
+        UnsortedTableMap<K, V> bucket = table[h];
+        if (bucket == null) {
+            return defaultValue; // Return the default value if the bucket is empty
+        }
+        V value = bucket.get(key);
+        return (value != null) ? value : defaultValue; // Return the found value or the default value if null
+    }
+
+    public void printHashMap() {
+        System.out.println("Current HashMap:");
+        for (UnsortedTableMap<K, V> bucket : table) {
+            if (bucket != null && !bucket.isEmpty()) {
+                for (Entry<K, V> entry : bucket.entrySet()) {
+                    System.out.println(entry.getKey() + " -> " + entry.getValue());
+                }
+            }
+        }
+    }
+
     public String toString() {
         return entrySet().toString();
     }
