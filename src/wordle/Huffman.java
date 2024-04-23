@@ -4,11 +4,13 @@ import project20280.hashtable.ChainHashMap;
 import project20280.interfaces.BinaryTree;
 import project20280.interfaces.Position;
 import project20280.priorityqueue.HeapPriorityQueue;
+import project20280.tree.AbstractBinaryTree;
 import project20280.tree.BinaryTreePrinter;
 import project20280.tree.LinkedBinaryTree;
 
 public class Huffman {
 
+    public AbstractBinaryTree<Object> bt;
     //String fileName = "wordle/resources/dictionary.txt";
     String fileName = "wordle/resources/extended-dictionary.txt";
 
