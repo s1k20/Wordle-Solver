@@ -1,10 +1,14 @@
 package wordle;
 
+import project20280.hashtable.ChainHashMap;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+
+
 
 public class Wordle {
 //    String fileName = "wordle/resources/extended-dictionary.txt";
@@ -21,8 +25,11 @@ public class Wordle {
     public static final String ANSI_YELLOW_BACKGROUND = "\u001B[43m";
     public static final String ANSI_GREY_BACKGROUND = "\u001B[100m";
 
-    Map<Character, Integer> letterFrequency = new HashMap<>();
-    Map<String, Integer> wordScores = new HashMap<>();
+//    Map<Character, Integer> letterFrequency = new HashMap<>();
+//      Map<String, Integer> wordScores = new HashMap<>();
+    ChainHashMap<Character, Integer> letterFrequency = new ChainHashMap<>();
+    ChainHashMap<String, Integer> possible_words = new ChainHashMap<>();
+
 
     Wordle() {
         this.dictionary = readDictionary(fileName);
@@ -34,6 +41,7 @@ public class Wordle {
         Wordle game = new Wordle();
         String target = game.getRandomTargetWord();
         game.play(target);
+        game.printLoadFactor(); // Print load factor after some gameplay
     }
 
     void calculateLetterFrequency() {
@@ -43,39 +51,6 @@ public class Wordle {
             }
         }
     }
-
-    void calculateWordScores() {
-        for (String word : dictionary) {
-            int score = 0;
-            for (char c : word.toCharArray()) {
-                score += letterFrequency.get(c);
-            }
-            wordScores.put(word, score);
-        }
-    }
-
-//    public void play(String target) {
-//        String guess = "abbey"; // Starting with the first guess
-//        List<String> possibleWords = new ArrayList<>(dictionary); // Clone the original dictionary to filter
-//
-//        for (int i = 0; i < num_guesses; ++i) {
-//            if (guess.equals(target)) {
-//                win(target);
-//                return;
-//            }
-//
-//            String[] hint = generateHint(guess, target);
-//            System.out.println("Guess: " + guess + ", Hint: " + Arrays.toString(hint));
-//
-//            filterDictionaryBasedOnHint(guess, hint, possibleWords);
-//            if (possibleWords.size() == 1) {
-//                win(possibleWords.get(0));
-//                return;
-//            }
-//            guess = getNextBestGuess(possibleWords);
-//        }
-//        lost(target);
-//    }
 
     public int play(String target) {
         String guess = "slate"; // Starting with the first guess
@@ -92,18 +67,19 @@ public class Wordle {
             String[] hint = generateHint(guess, target);
             System.out.println("Guess:\n "  + guess + ",\n Hint: " + Arrays.toString(hint) + "\n");
 
-            filterDictionaryBasedOnHint(guess, hint, possibleWords);
+            filterDictionaryBasedOnHint(guess, target);
             if (possibleWords.isEmpty()) {
-                lost(target);
+                lost(target); // This should never happen if the code is correct
                 return guessCount; // Return guess count when no words left (fail-safe)
             }
             if (possibleWords.size() == 1) {
-                win(possibleWords.get(0));
-                return guessCount;
+                guess = possibleWords.get(0); // This ensures you always guess the last remaining word
+                continue;
             }
-            guess = getNextBestGuess(possibleWords);
+            guess = getNextBestGuess();
         }
     }
+
 
     String[] generateHint(String guess, String target) {
         String[] hint = new String[5];
@@ -130,21 +106,55 @@ public class Wordle {
         }
         return hint;
     }
-    void filterDictionaryBasedOnHint(String guess, String[] hint, List<String> possibleWords) {
-        Iterator<String> it = possibleWords.iterator();
-        while (it.hasNext()) {
-            String word = it.next();
-            String[] wordHint = generateHint(guess, word);
-            if (!Arrays.equals(wordHint, hint)) {
-                it.remove();
+
+    public void filterDictionaryBasedOnHint(String guess, String target) {
+        String[] hints = generateHint(guess, target);
+        List<String> toRemove = new ArrayList<>();
+
+        for (String word : possible_words.keySet()) {
+            String[] wordHints = generateHint(guess, word);
+            if (!doHintsMatch(wordHints, hints)) {
+                toRemove.add(word);
             }
+        }
+
+        // Now remove the keys
+        for (String key : toRemove) {
+            possible_words.remove(key);
         }
     }
 
-    String getNextBestGuess(List<String> possibleWords) {
-        return possibleWords.stream()
-                .max(Comparator.comparingInt(wordScores::get))
-                .orElse("error");
+    private boolean doHintsMatch(String[] wordHints, String[] targetHints) {
+        for (int i = 0; i < targetHints.length; i++) {
+            if (!wordHints[i].equals(targetHints[i])) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    String getNextBestGuess() {
+        String bestGuess = null;
+        int maxScore = Integer.MIN_VALUE;
+
+        for (project20280.interfaces.Entry<String, Integer> entry : possible_words.entrySet()) {
+            if (entry.getValue() > maxScore) {
+                maxScore = entry.getValue();
+                bestGuess = entry.getKey();
+            }
+        }
+
+        return bestGuess;
+    }
+
+    void calculateWordScores() {
+        for (String word : dictionary) {
+            int score = 0;
+            for (char c : word.toCharArray()) {
+                score += letterFrequency.get(c);
+            }
+            possible_words.put(word, score);
+        }
     }
 
     public String getRandomTargetWord() {
@@ -206,4 +216,10 @@ public class Wordle {
         }
         return wordList;
     }
+
+    public void printLoadFactor() {
+        double loadFactor = possible_words.calculateLoadFactor();
+        System.out.println("Current Load Factor: " + loadFactor);
+    }
+
 }

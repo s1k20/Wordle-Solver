@@ -2,6 +2,7 @@ package project20280.hashtable;
 
 import project20280.interfaces.Entry;
 
+
 import java.util.ArrayList;
 
 /*
@@ -143,6 +144,20 @@ public class ChainHashMap<K, V> extends AbstractHashMap<K, V> {
                 }
             }
         }
+    }
+
+    /**
+     * Returns the current number of buckets (capacity) of the hash map.
+     */
+    public int getCapacity() {
+        return table.length; // 'table' is the array of buckets
+    }
+
+    /**
+     * Calculate the load factor for this hash map.
+     */
+    public double calculateLoadFactor() {
+        return (double) size() / getCapacity();
     }
 
     public String toString() {

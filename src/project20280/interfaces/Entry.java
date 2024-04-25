@@ -1,5 +1,6 @@
 package project20280.interfaces;
 
+
 /**
  * Interface for a key-value pair.
  */
