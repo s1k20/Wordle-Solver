@@ -25,9 +25,9 @@ public class Huffman {
 
         EncodedValue = new project20280.hashtable.ChainHashMap<>();
         huffmantree = compress(data);
-        generateCodes(huffmantree.root(),"",this.EncodedValue);
-        EncodedValue.printHashMap();
-        this.printTree(data);
+//        generateCodes(huffmantree.root(),"",this.EncodedValue);
+//        EncodedValue.printHashMap();
+//        this.printTree(data);
     }
 
     class HuffmanNode implements Comparable<HuffmanNode>{
@@ -135,8 +135,5 @@ public class Huffman {
         Huffman huffman = new Huffman(String.join("", game.dictionary));
 
     }
-
-
-
 
 }

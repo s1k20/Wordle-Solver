@@ -40,7 +40,7 @@ public class Wordle {
     public static void main(String[] args) {
         Wordle game = new Wordle();
         String target = game.getRandomTargetWord();
-        game.play(target);
+        game.play("irony");
         game.printLoadFactor(); // Print load factor after some gameplay
     }
 
@@ -53,8 +53,8 @@ public class Wordle {
     }
 
     public int play(String target) {
-        String guess = "slate"; // Starting with the first guess
-        List<String> possibleWords = new ArrayList<>(dictionary); // Clone the original dictionary to filter
+        String guess = "adieu"; // Starting with the first guess
+
         int guessCount = 0;
 
         while (true) {
@@ -68,14 +68,14 @@ public class Wordle {
             System.out.println("Guess:\n "  + guess + ",\n Hint: " + Arrays.toString(hint) + "\n");
 
             filterDictionaryBasedOnHint(guess, target);
-            if (possibleWords.isEmpty()) {
-                lost(target); // This should never happen if the code is correct
-                return guessCount; // Return guess count when no words left (fail-safe)
-            }
-            if (possibleWords.size() == 1) {
-                guess = possibleWords.get(0); // This ensures you always guess the last remaining word
-                continue;
-            }
+//            if (possibleWords.isEmpty()) {
+//                lost(target); // This should never happen if the code is correct
+//                return guessCount; // Return guess count when no words left (fail-safe)
+//            }
+//            if (possibleWords.size() == 1) {
+//                guess = possibleWords.get(0); // This ensures you always guess the last remaining word
+//                continue;
+//            }
             guess = getNextBestGuess();
         }
     }
@@ -83,21 +83,21 @@ public class Wordle {
 
     String[] generateHint(String guess, String target) {
         String[] hint = new String[5];
-        Arrays.fill(hint, "_");
+        Arrays.fill(hint, "⬛");
         boolean[] matched = new boolean[target.length()];
 
         for (int k = 0; k < 5; k++) {
             if (guess.charAt(k) == target.charAt(k)) {
-                hint[k] = "+";
+                hint[k] = "\uD83D\uDFE9";
                 matched[k] = true;
             }
         }
 
         for (int k = 0; k < 5; k++) {
-            if (hint[k].equals("_")) {
+            if (hint[k].equals("⬛")) {
                 for (int j = 0; j < target.length(); j++) {
                     if (guess.charAt(k) == target.charAt(j) && !matched[j]) {
-                        hint[k] = "o";
+                        hint[k] = "\uD83D\uDFE8";
                         matched[j] = true;
                         break;
                     }

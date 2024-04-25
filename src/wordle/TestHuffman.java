@@ -17,7 +17,7 @@ public class TestHuffman {
 
         Wordle game = new Wordle();
         Huffman huffman = new Huffman(String.join("", game.dictionary));
-        String actual = huffman.bt.inorder().toString();
+        String actual = huffman.huffmantree.inorder().toString();
 
         //System.out.println(expected);
         assertEquals(expected, actual);

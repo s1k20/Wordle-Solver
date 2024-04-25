@@ -148,7 +148,7 @@ class AVLTreeMapTest {
         for (Integer i : arr) {
             map.put(i, Integer.toString(i));
         }
-        assertEquals("[⦰, 1, ⦰, 2, ⦰, 4, ⦰, 5, ⦰, 12, ⦰, 15, ⦰, 21, ⦰, 23, ⦰, 24, ⦰, 26, ⦰, 33, ⦰, 35, ⦰]", map.toString());
+        assertEquals("[null, 1, null, 2, null, 4, null, 5, null, 12, null, 15, null, 21, null, 23, null, 24, null, 26, null, 33, null, 35, null]", map.toString());
     }
 
     @Test
