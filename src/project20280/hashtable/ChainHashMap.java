@@ -157,7 +157,17 @@ public class ChainHashMap<K, V> extends AbstractHashMap<K, V> {
      * Calculate the load factor for this hash map.
      */
     public double calculateLoadFactor() {
-        return (double) size() / getCapacity();
+        return (double) super.size() / getCapacity();
+    }
+
+    public int countcollisions(){
+        int collisions = 0;
+        for (UnsortedTableMap<K,V> bucket : table){
+            if (bucket != null && bucket.size() > 1){
+                collisions += (bucket.size() - 1);
+            }
+        }
+        return collisions;
     }
 
     public String toString() {

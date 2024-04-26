@@ -38,10 +38,12 @@ public class Wordle {
     }
 
     public static void main(String[] args) {
+
         Wordle game = new Wordle();
         String target = game.getRandomTargetWord();
-        game.play("irony");
         game.printLoadFactor(); // Print load factor after some gameplay
+        game.play("abbey");
+
     }
 
     void calculateLetterFrequency() {
@@ -53,7 +55,7 @@ public class Wordle {
     }
 
     public int play(String target) {
-        String guess = "adieu"; // Starting with the first guess
+        String guess = "keeps"; // Starting with the first guess
 
         int guessCount = 0;
 
@@ -65,17 +67,16 @@ public class Wordle {
             }
 
             String[] hint = generateHint(guess, target);
+            System.out.println("collisions: " + possible_words.countcollisions());
             System.out.println("Guess:\n "  + guess + ",\n Hint: " + Arrays.toString(hint) + "\n");
 
+
             filterDictionaryBasedOnHint(guess, target);
-//            if (possibleWords.isEmpty()) {
-//                lost(target); // This should never happen if the code is correct
-//                return guessCount; // Return guess count when no words left (fail-safe)
-//            }
-//            if (possibleWords.size() == 1) {
-//                guess = possibleWords.get(0); // This ensures you always guess the last remaining word
-//                continue;
-//            }
+            if (possible_words.isEmpty()) {
+                lost(target); // This should never happen if the code is correct
+                return guessCount; // Return guess count when no words left (fail-safe)
+            }
+
             guess = getNextBestGuess();
         }
     }
