@@ -130,10 +130,58 @@ public class Huffman {
         return EncodedValue;
     }
 
-    public static void main(String[] args) {
-        Wordle game = new Wordle();
-        Huffman huffman = new Huffman(String.join("", game.dictionary));
 
+        public static void main(String[] args) {
+            Wordle game = new Wordle();
+            Huffman huffman = new Huffman(String.join("", game.dictionary));
+
+            // ASCII Calculation
+            int totalChars = String.join("", game.dictionary).length();
+            int totalAsciiBits = totalChars * 8;
+            System.out.println("Total bits with ASCII coding: " + totalAsciiBits);
+
+            // Huffman Coding Calculation
+            huffman.generateCodes(huffman.huffmantree.root(), "", new ChainHashMap<>());
+            int totalHuffmanBits = 0;
+            for (String word : game.dictionary) {
+                for (char c : word.toCharArray()) {
+                    totalHuffmanBits += huffman.EncodedValue.get(String.valueOf(c)).length();
+                }
+            }
+            System.out.println("Total bits with Huffman coding: " + totalHuffmanBits);
+
+            // Compression Ratio
+            double compressionRatio = (double) totalHuffmanBits / totalAsciiBits;
+            double compressionPercentage = (compressionRatio) * 100;
+            System.out.println("Compression Ratio: " + compressionRatio);
+
+            // Finding longest and shortest codes
+            int maxCodeLength = Integer.MIN_VALUE;
+            int minCodeLength = Integer.MAX_VALUE;
+            String longestWord = "", shortestWord = "";
+            for (String word : game.dictionary) {
+                int currentWordLength = 0;
+                for (char c : word.toCharArray()) {
+                    currentWordLength += huffman.EncodedValue.get(String.valueOf(c)).length();
+                }
+                if (currentWordLength > maxCodeLength) {
+                    maxCodeLength = currentWordLength;
+                    longestWord = word;
+                }
+                if (currentWordLength < minCodeLength) {
+                    minCodeLength = currentWordLength;
+                    shortestWord = word;
+                }
+            }
+            System.out.println("Longest Huffman Code Word: " + longestWord + " (" + maxCodeLength + " bits)");
+            System.out.println("Shortest Huffman Code Word: " + shortestWord + " (" + minCodeLength + " bits)");
+
+
+
+            // Convert to percentage
+
+
+            System.out.println("Compression as a percentage: " + compressionPercentage + "%");
+        }
     }
 
-}

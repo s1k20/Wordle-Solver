@@ -3,7 +3,9 @@ package project20280.tree;
 import project20280.interfaces.Entry;
 import project20280.interfaces.Position;
 
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
 /**
  * An implementation of a sorted map using an AVL tree.
@@ -119,10 +121,11 @@ public class AVLTreeMap<K, V> extends TreeMap<K, V> {
         return true;
     }
 
-    public String toBinaryTreeString() {
+     public String toBinaryTreeString() {
         BinaryTreePrinter<Entry<K, V>> btp = new BinaryTreePrinter<>(this.tree);
         return btp.print();
     }
+
 
     public static void main(String[] args) {
         AVLTreeMap avl = new AVLTreeMap<>();
