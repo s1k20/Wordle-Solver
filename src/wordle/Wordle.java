@@ -11,8 +11,8 @@ import java.util.*;
 
 
 public class Wordle {
-//    String fileName = "wordle/resources/extended-dictionary.txt";
-    String fileName = "wordle/resources/dictionary.txt";
+    String fileName = "wordle/resources/extended-dictionary.txt";
+//    String fileName = "wordle/resources/dictionary.txt";
     List<String> dictionary = null;
     final int num_guesses = 5;
     final long seed = 50;
