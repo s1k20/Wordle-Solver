@@ -42,7 +42,7 @@ public class Wordle {
         Wordle game = new Wordle();
         String target = game.getRandomTargetWord();
         game.printLoadFactor(); // Print load factor after some gameplay
-        game.play("abbey");
+        game.play(target);
 
     }
 
@@ -55,7 +55,7 @@ public class Wordle {
     }
 
     public int play(String target) {
-        String guess = "keeps"; // Starting with the first guess
+        String guess = "stake"; // Starting with the first guess
 
         int guessCount = 0;
 
@@ -105,6 +105,7 @@ public class Wordle {
                 }
             }
         }
+
         return hint;
     }
 
@@ -212,8 +213,8 @@ public class Wordle {
             //Close the input stream
             in.close();
 
-        } catch (Exception e) {//Catch exception if any
-            System.err.println("Error: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("Error: " + e.getMessage()); //Catch exception if any
         }
         return wordList;
     }
